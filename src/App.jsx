@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaEnvelope,
-  FaBars,
-  FaTimes,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaBars, FaTimes } from "react-icons/fa";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import {
   SiReact,
@@ -56,7 +49,7 @@ function App() {
     {
       name: "WhatsApp",
       icon: <SiWhatsapp />,
-      link: "https://wa.me/089636758016",
+      link: "https://wa.me/6289636758016",
       color: "hover:bg-[#25D366]",
       shadow: "hover:shadow-[#25D366]/40",
       text: "Fast Response",
@@ -227,7 +220,7 @@ function App() {
 
                   <div className="flex items-center relative">
                     <a
-                      href="/CV_Muh_Nur_Assidiq_Syafarrudin.pdf" 
+                      href="/CV_Muh_Nur_Assidiq_Syafarrudin.pdf"
                       download="CV Muh Nur Assidiq_Syafarrudin.pdf"
                       className="px-8 py-3 rounded-2xl border-2 border-green-600 bg-white text-green-600 font-bold shadow-lg shadow-green-100 hover:bg-gradient-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:border-transparent transition-all duration-300 transform hover:scale-105"
                     >
@@ -458,7 +451,7 @@ function App() {
         </section>
 
         {/* Projects Section */}
-        <section
+        {/* <section
           id="projects"
           className="px-4 md:px-8 lg:px-16 py-20 bg-transparent"
         >
@@ -493,6 +486,62 @@ function App() {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section> */}
+        <section
+          id="projects"
+          className="px-4 md:px-8 lg:px-16 py-20 bg-transparent"
+        >
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent">
+              My Projects
+            </h2>
+
+            <div className="flex justify-center">
+              <motion.div
+                whileHover={{ y: -10 }}
+                className="w-full max-w-sm bg-white/90 backdrop-blur-md p-6 rounded-[2.5rem] shadow-xl border border-gray-100 group"
+              >
+                {/* Kontainer Gambar Proyek */}
+                <div className="h-48 overflow-hidden rounded-[2rem] mb-6 flex items-center justify-center bg-stone-100">
+                  <img
+                    src={GlobalImages.weddingProject}
+                    alt="Wedding Invitation Project"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
+
+                <h3 className="text-xl font-bold mb-2 group-hover:text-green-600 transition-colors">
+                  Wedding Invitation
+                </h3>
+                <p className="text-gray-600 mb-6 text-sm">
+                  Aplikasi undangan pernikahan digital eksklusif dengan fitur
+                  musik, countdown otomatis, dan integrasi RSVP via WhatsApp.
+                </p>
+
+                <div className="flex justify-between items-center border-t pt-4">
+                  {/* Link Demo - Ganti button jadi tag <a> */}
+                  <a
+                    href="https://undangan-pernikahan-eight-xi.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 font-bold text-sm flex items-center gap-2 hover:underline"
+                  >
+                    <FiExternalLink /> Demo
+                  </a>
+
+                  {/* Link Code - Lakukan hal yang sama untuk GitHub jika ada linknya */}
+                  <a
+                    href="https://github.com/Dickyasyy/Undangan-Pernikahan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 font-bold text-sm flex items-center gap-2 hover:text-stone-600"
+                  >
+                    <FiGithub /> Code
+                  </a>
+                </div>
+              </motion.div
             </div>
           </div>
         </section>
