@@ -541,7 +541,7 @@ function App() {
                     <FiGithub /> Code
                   </a>
                 </div>
-              </motion.div
+              </motion.div>
             </div>
           </div>
         </section>
