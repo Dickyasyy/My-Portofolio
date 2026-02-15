@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaGithub, FaLinkedin, FaBars, FaTimes } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaBars, FaTimes, FaRegCreditCard } from "react-icons/fa";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import {
   SiReact,
@@ -56,8 +56,94 @@ function App() {
     },
   ];
 
+  const projects = [
+    {
+      title: "Wedding Invitation",
+      description:
+        "Aplikasi undangan pernikahan digital eksklusif dengan fitur musik, countdown otomatis, dan integrasi RSVP via WhatsApp.",
+      image: GlobalImages.weddingProject,
+      demoLink: "https://undangan-pernikahan-eight-xi.vercel.app/",
+      codeLink: "https://github.com/Dickyasyy/Undangan-Pernikahan",
+      tech: [
+        { name: "React", icon: <SiReact className="text-blue-500" /> },
+        { name: "Tailwind", icon: <SiTailwindcss className="text-teal-400" /> },
+      ],
+      emoji: "💍",
+    },
+    {
+      title: "Web Servis",
+      description: "Web Jasa Servis Printer Dan Instalasi Windows Cepat & Murah Meriah",
+      image: GlobalImages.servisProject,
+      demoLink: "https://servis-laptop-frontend.vercel.app/",
+      codeLink: "https://github.com/Dickyasyy/servis-laptop-frontend",
+      tech: [
+        { name: "React", icon: <SiReact className="text-blue-500" /> },
+        { name: "Tailwind", icon: <SiTailwindcss className="text-teal-400" /> },
+        { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
+        { name: "SQL", icon: <SiMysql className="text-blue-700" /> },
+        { name: "Midtrans", icon: <FaRegCreditCard className="text-blue-800" /> }
+      ],
+      emoji: "🛍️",
+    },
+  ];
+
+  const StarSparkles = () => {
+    // Jumlah 100 agar lebih ramai dan terlihat jelas
+    const stars = Array.from({ length: 40 });
+
+    return (
+      <div className="fixed inset-0 pointer-events-none z-20 overflow-hidden">
+        {stars.map((_, i) => {
+          const size = Math.random() * 5 + 2;
+          const isGreen = Math.random() > 0.5; // 50% Hijau, 50% Kuning
+
+          return (
+            <motion.div
+              key={i}
+              className="absolute"
+              initial={{
+                opacity: 0,
+                x: Math.random() * 100 + "vw",
+                y: Math.random() * 100 + "vh",
+              }}
+              animate={{
+                opacity: [0, 1, 0.5, 1, 0], // Berkedip lebih tajam
+                scale: [0, 1, 1.2, 1, 0],
+                rotate: [0, 90, 180], // Sedikit rotasi agar dinamis
+              }}
+              transition={{
+                duration: Math.random() * 5 + 3,
+                repeat: Infinity,
+                delay: Math.random() * 10,
+                ease: "easeInOut",
+              }}
+              style={{
+                width: size + "px",
+                height: size + "px",
+              }}
+            >
+              {/* Logika Warna: Hijau atau Kuning */}
+              <div
+                className={`w-full h-full rounded-full blur-[0.3px] 
+                  ${
+                    isGreen
+                      ? "bg-green-500 shadow-[0_0_12px_4px_rgba(34,197,94,0.8)]"
+                      : "bg-yellow-400 shadow-[0_0_12px_4px_rgba(250,204,21,0.8)]"
+                  }`}
+              />
+
+              {/* Inti Cahaya Putih (Agar terlihat seperti berlian/bintang asli) */}
+              <div className="absolute inset-[20%] bg-white rounded-full opacity-80" />
+            </motion.div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className="relative min-h-screen w-full bg-white overflow-x-hidden">
+      <StarSparkles />
       {/* --- BACKGROUND ANIMASI GLOBAL --- */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <motion.img
@@ -284,58 +370,45 @@ function App() {
           id="about"
           className="px-4 md:px-8 lg:px-16 py-24 bg-transparent relative overflow-hidden"
         >
-          {/* --- ANIMASI GAMBAR TAMBAHAN --- */}
-          {/* Gambar 1: Kiri Atas - Posisi disesuaikan agar tidak terlalu bawah */}
-          <motion.img
-            src={GlobalImages.AnimAbout1}
-            alt="deco-1"
-            className="absolute top-24 -left-5 w-32 h-32 opacity-80 z-0 hidden lg:block"
-            animate={{
-              y: [0, -20, 0],
-              rotate: [0, 8, 0],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-          />
-
           <div className="max-w-7xl mx-auto relative z-10">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               className="text-4xl md:text-5xl font-extrabold mb-20 text-center bg-gradient-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent"
             >
               About Me
             </motion.h2>
 
             <div className="grid md:grid-cols-2 gap-12 relative">
-              {/* Gambar 2: Kanan Depan (Z-index lebih tinggi dari card) */}
-              <motion.img
-                src={GlobalImages.AnimAbout2}
-                alt="deco-2"
-                className="absolute -bottom-16 -right-10 w-48 h-48 z-30 pointer-events-none hidden lg:block"
-                animate={{
-                  y: [0, 25, 0],
-                  rotate: [0, -15, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-              {/* CARD 1: BACKGROUND */}
+              {/* --- CARD 1: BACKGROUND --- */}
               <motion.div
                 whileHover={{ y: -15 }}
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="group p-10 rounded-[3rem] bg-white/80 backdrop-blur-xl shadow-2xl border border-white relative overflow-hidden z-10"
+                viewport={{ once: true }}
+                className="group p-10 rounded-[3rem] bg-white/80 backdrop-blur-xl shadow-2xl border border-white relative z-10"
               >
-                <div className="absolute top-0 left-0 w-3 h-full bg-gradient-to-b from-green-500 to-yellow-400 group-hover:w-4 transition-all"></div>
+                {/* ANIMASI 1: Sekarang di dalam Card 1 (Kiri Atas Card) */}
+                <motion.img
+                  src={GlobalImages.AnimAbout1}
+                  alt="deco-1"
+                  className="absolute -top-10 -left-10 w-24 h-24 md:w-32 md:h-32 z-20 pointer-events-none"
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 5, 0],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
+                <div className="absolute top-0 left-0 w-3 h-full bg-gradient-to-b from-green-500 to-yellow-400 group-hover:w-4 transition-all rounded-l-[3rem]"></div>
 
                 <div className="flex items-center gap-4 mb-8">
                   <div className="p-4 bg-green-100 rounded-2xl text-green-600">
-                    {/* Ikon User yang Pasti Muncul (Inline SVG) */}
                     <svg
                       width="32"
                       height="32"
@@ -372,13 +445,30 @@ function App() {
                 </p>
               </motion.div>
 
-              {/* CARD 2: TECH STACK */}
+              {/* --- CARD 2: TECH STACK --- */}
               <motion.div
                 whileHover={{ y: -15 }}
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="p-10 rounded-[3rem] bg-white/80 backdrop-blur-xl shadow-2xl border border-white z-10"
+                viewport={{ once: true }}
+                className="p-10 rounded-[3rem] bg-white/80 backdrop-blur-xl shadow-2xl border border-white relative z-10"
               >
+                {/* ANIMASI 2: Menempel di Card 2 (Kanan Bawah) */}
+                <motion.img
+                  src={GlobalImages.AnimAbout2}
+                  alt="deco-2"
+                  className="absolute -bottom-12 -right-10 w-32 h-32 md:w-44 md:h-44 z-30 pointer-events-none"
+                  animate={{
+                    y: [0, 15, 0],
+                    rotate: [0, -10, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+
                 <div className="flex items-center gap-4 mb-10">
                   <div className="p-4 bg-yellow-100 rounded-2xl text-yellow-600">
                     <svg
@@ -439,7 +529,8 @@ function App() {
                     <motion.span
                       key={skill.name}
                       whileHover={{ scale: 1.1, y: -5 }}
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-xl font-bold text-gray-700 border border-gray-100 shadow-sm"
+                      whileTap={{ scale: 0.95 }} // Tambahan agar saat di-klik/sentuh di HP ada feedback
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-xl font-bold text-gray-700 border border-gray-100 shadow-sm cursor-pointer touch-none"
                     >
                       <span className="text-xl">{skill.icon}</span> {skill.name}
                     </motion.span>
@@ -450,45 +541,7 @@ function App() {
           </div>
         </section>
 
-        {/* Projects Section */}
-        {/* <section
-          id="projects"
-          className="px-4 md:px-8 lg:px-16 py-20 bg-transparent"
-        >
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent">
-              My Projects
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[1, 2, 3].map((item) => (
-                <motion.div
-                  key={item}
-                  whileHover={{ y: -10 }}
-                  className="bg-white/90 backdrop-blur-md p-6 rounded-[2.5rem] shadow-xl border border-gray-100 group"
-                >
-                  <div className="h-48 bg-gradient-to-br from-green-50 to-yellow-50 rounded-[2rem] mb-6 flex items-center justify-center text-5xl">
-                    🛍️
-                  </div>
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-green-600 transition-colors">
-                    E-commerce App
-                  </h3>
-                  <p className="text-gray-600 mb-6 text-sm">
-                    Membangun platform belanja modern dengan integrasi payment
-                    gateway.
-                  </p>
-                  <div className="flex justify-between items-center border-t pt-4">
-                    <button className="text-green-600 font-bold text-sm flex items-center gap-2">
-                      <FiExternalLink /> Demo
-                    </button>
-                    <button className="text-gray-400 font-bold text-sm flex items-center gap-2">
-                      <FiGithub /> Code
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section> */}
+        {/* Project Session */}
         <section
           id="projects"
           className="px-4 md:px-8 lg:px-16 py-20 bg-transparent"
@@ -498,50 +551,77 @@ function App() {
               My Projects
             </h2>
 
-            <div className="flex justify-center">
-              <motion.div
-                whileHover={{ y: -10 }}
-                className="w-full max-w-sm bg-white/90 backdrop-blur-md p-6 rounded-[2.5rem] shadow-xl border border-gray-100 group"
-              >
-                {/* Kontainer Gambar Proyek */}
-                <div className="h-48 overflow-hidden rounded-[2rem] mb-6 flex items-center justify-center bg-stone-100">
-                  <img
-                    src={GlobalImages.weddingProject}
-                    alt="Wedding Invitation Project"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-white/90 backdrop-blur-md p-8 rounded-[3rem] shadow-xl border border-gray-100 group flex flex-col h-full"
+                >
+                  {/* Gambar Proyek */}
+                  <div className="h-52 overflow-hidden rounded-[2.5rem] mb-6 flex items-center justify-center bg-gray-50 relative border border-gray-100">
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <span className="text-6xl group-hover:scale-125 transition-all duration-500">
+                        {project.emoji}
+                      </span>
+                    )}
+                  </div>
 
-                <h3 className="text-xl font-bold mb-2 group-hover:text-green-600 transition-colors">
-                  Wedding Invitation
-                </h3>
-                <p className="text-gray-600 mb-6 text-sm">
-                  Aplikasi undangan pernikahan digital eksklusif dengan fitur
-                  musik, countdown otomatis, dan integrasi RSVP via WhatsApp.
-                </p>
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-green-600 transition-colors">
+                    {project.title}
+                  </h3>
 
-                <div className="flex justify-between items-center border-t pt-4">
-                  {/* Link Demo - Ganti button jadi tag <a> */}
-                  <a
-                    href="https://undangan-pernikahan-eight-xi.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-green-600 font-bold text-sm flex items-center gap-2 hover:underline"
-                  >
-                    <FiExternalLink /> Demo
-                  </a>
+                  <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                    {project.description}
+                  </p>
 
-                  {/* Link Code - Lakukan hal yang sama untuk GitHub jika ada linknya */}
-                  <a
-                    href="https://github.com/Dickyasyy/Undangan-Pernikahan"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-400 font-bold text-sm flex items-center gap-2 hover:text-stone-600"
-                  >
-                    <FiGithub /> Code
-                  </a>
-                </div>
-              </motion.div>
+                  {/* TECH STACK ALA "ABOUT ME" */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {project.tech.map((skill, i) => (
+                      <motion.span
+                        key={i}
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl font-bold text-[11px] text-gray-700 border border-gray-100 shadow-sm cursor-default"
+                      >
+                        <span className="text-sm">{skill.icon}</span>{" "}
+                        {skill.name}
+                      </motion.span>
+                    ))}
+                  </div>
+
+                  {/* Tombol Action */}
+                  <div className="flex justify-between items-center border-t border-gray-50 pt-5 mt-auto">
+                    <a
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-green-600 hover:text-white transition-all duration-300"
+                    >
+                      <FiExternalLink /> Demo
+                    </a>
+                    <a
+                      href={project.codeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 font-bold text-sm flex items-center gap-2 hover:text-gray-800 transition-colors"
+                    >
+                      <FiGithub size={18} /> Code
+                    </a>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
