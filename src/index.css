@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  /* Memindahkan warna custom dari index.html kamu ke sini */
-  --color-primary: #3B82F6;
-  --color-secondary: #1E40AF;
-  --color-accent: #F59E0B;
-  --color-dark: #1F2937;
-  --color-light: #F9FAFB;
+  /* Warna Custom */
+  --color-primary: #3b82f6;
+  --color-secondary: #1e40af;
+  --color-accent: #f59e0b;
+  --color-dark: #1f2937;
+  --color-light: #f9fafb;
 
   --font-sans: "Inter", "system-ui", "sans-serif";
 
@@ -28,28 +28,76 @@
 @layer base {
   * {
     font-family: var(--font-sans);
+    /* Menghilangkan highlight biru bawaan browser mobile */
+    -webkit-tap-highlight-color: transparent;
+    /* Memastikan input sentuhan terasa instan */
+    touch-action: manipulation;
+    img {
+      backface-visibility: hidden;
+      -webkit-user-drag: none;
+    }
+    .group:active h3 {
+      background-image: linear-gradient(to right, var(--color-green-600), var(--color-yellow-500)) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      color: transparent !important;
+      -webkit-text-fill-color: transparent !important;
+    }
   }
+  
   html {
     scroll-behavior: smooth;
   }
+
+  /* Logika khusus untuk Mobile agar transisi warna terasa instan saat ditekan */
+  /* @media (pointer: coarse) {
+    .social-card {
+      transition-duration: 150ms !important;
+    }
+    .group {
+      transition-duration: 100ms !important;
+    }
+  } */
 }
 
 @layer components {
+  /* Class khusus untuk memaksa warna sosial media di mobile */
+  /* Ini yang membuat perilakunya sama seperti CDN kembali */
+  .social-card:active {
+    background-color: var(--active-bg) !important;
+    box-shadow: 0 20px 25px -5px var(--active-shadow) !important;
+  }
+
+  /* Memaksa semua elemen di dalam card jadi putih saat ditekan */
+  .social-card:active * {
+    color: white !important;
+  }
+
   .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(to right, #3B82F6, #F59E0B);
+    @apply bg-clip-text text-transparent bg-linear-to-r from-[#3B82F6] to-[#F59E0B];
   }
 
   .glass-effect {
     @apply bg-white/80 backdrop-blur-md;
   }
 
-  /* Kamu bisa pakai var(--color-primary) di sini */
   .btn-primary {
-    @apply bg-[var(--color-primary)] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-[var(--color-secondary)] hover:-translate-y-0.5 hover:shadow-lg;
+    @apply bg-primary text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+    
+    @media (hover: hover) {
+      @apply hover:bg-secondary hover:-translate-y-0.5 hover:shadow-lg;
+    }
+
+    @apply active:scale-95 active:bg-secondary;
   }
 
   .card {
-    @apply bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+    @apply bg-white rounded-2xl p-6 shadow-sm border border-gray-100 transition-all duration-300;
+    
+    @media (hover: hover) {
+      @apply hover:shadow-2xl hover:-translate-y-1;
+    }
+
+    @apply active:scale-[0.98];
   }
 }

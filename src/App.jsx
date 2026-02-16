@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import {
   FaGithub,
   FaLinkedin,
@@ -28,48 +28,49 @@ import { GlobalImages } from "./assets";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSocial, setActiveSocial] = useState(null);
 
   const handleDownloadCV = (e) => {
     e.preventDefault();
-  
+
     Swal.fire({
-      title: 'Masukkan Kode Akses',
-      input: 'text',
-      inputPlaceholder: 'Ketik kode di sini...',
+      title: "Masukkan Kode Akses",
+      input: "text",
+      inputPlaceholder: "Ketik kode di sini...",
       showCancelButton: true,
-      confirmButtonText: 'Download',
-      confirmButtonColor: '#059669', // Warna hijau
-      cancelButtonText: 'Batal',
+      confirmButtonText: "Download",
+      confirmButtonColor: "#059669", // Warna hijau
+      cancelButtonText: "Batal",
     }).then((result) => {
       const KODE_RAHASIA = "Riferawati Ainun";
-  
+
       if (result.isConfirmed) {
         if (result.value === KODE_RAHASIA) {
           // Jika Benar
-          const link = document.createElement('a');
+          const link = document.createElement("a");
           link.href = "/cv-secure-9525123-req-access.pdf";
           link.download = "CV_Muh_Nur_Assidiq_Syafarrudin.pdf";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-  
+
           Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: 'Download sedang berjalan...',
+            icon: "success",
+            title: "Berhasil!",
+            text: "Download sedang berjalan...",
             timer: 2000,
-            showConfirmButton: false
+            showConfirmButton: false,
           });
-  
         } else {
           // Jika Salah - Arahkan ke IG
           Swal.fire({
-            icon: 'error',
-            title: 'Kode Salah 🤪',
-            html: 'Silakan DM saya di Instagram untuk mendapatkan kode akses.',
-            footer: '<a href="https://instagram.com/dickyasyy" target="_blank" style="color: #E1306C; font-weight: bold;">Klik di sini untuk ke IG: @dickyasyy</a>',
-            confirmButtonText: 'Tutup',
-            confirmButtonColor: '#d33'
+            icon: "error",
+            title: "Kode Salah 🤪",
+            html: "Silakan DM saya di Instagram untuk mendapatkan kode akses.",
+            footer:
+              '<a href="https://instagram.com/dickyasyy" target="_blank" style="color: #E1306C; font-weight: bold;">Klik di sini untuk ke IG: @dickyasyy</a>',
+            confirmButtonText: "Tutup",
+            confirmButtonColor: "#d33",
           });
         }
       }
@@ -81,8 +82,10 @@ function App() {
       name: "LinkedIn",
       icon: <SiLinkedin />,
       link: "https://www.linkedin.com/feed/",
-      color: "hover:bg-[#0077B5]",
-      shadow: "hover:shadow-[#0077B5]/40",
+      // Gunakan gradient dengan dua warna yang sama agar terlihat solid tapi tetap terbaca sebagai gradient
+      color:
+        "hover:bg-linear-to-tr hover:from-[#0077B5] hover:to-[#0077B5] active:bg-linear-to-tr active:from-[#0077B5] active:to-[#0077B5]",
+      shadow: "hover:shadow-[#0077B5]/40 active:shadow-[#0077B5]/40",
       text: "Professional Profile",
     },
     {
@@ -90,24 +93,26 @@ function App() {
       icon: <SiInstagram />,
       link: "https://instagram.com/dickyasyy",
       color:
-        "hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7]",
-      shadow: "hover:shadow-[#ee2a7b]/40",
+        "hover:bg-linear-to-tr hover:from-[#f9ce34] hover:via-[#ee2a7b] hover:to-[#6228d7] active:bg-linear-to-tr active:from-[#f9ce34] active:via-[#ee2a7b] active:to-[#6228d7]",
+      shadow: "hover:shadow-[#ee2a7b]/40 active:shadow-[#ee2a7b]/40",
       text: "Daily Activity",
     },
     {
       name: "TikTok",
       icon: <SiTiktok />,
       link: "https://tiktok.com/@dickyasy",
-      color: "hover:bg-[#000000]",
-      shadow: "hover:shadow-gray-500/40",
+      color:
+        "hover:bg-linear-to-tr hover:from-black hover:to-black active:bg-linear-to-tr active:from-black active:to-black",
+      shadow: "hover:shadow-gray-500/40 active:shadow-gray-500/40",
       text: "Creative Content",
     },
     {
       name: "WhatsApp",
       icon: <SiWhatsapp />,
       link: "https://wa.me/6289636758016",
-      color: "hover:bg-[#25D366]",
-      shadow: "hover:shadow-[#25D366]/40",
+      color:
+        "hover:bg-linear-to-tr hover:from-[#25D366] hover:to-[#25D366] active:bg-linear-to-tr active:from-[#25D366] active:to-[#25D366]",
+      shadow: "hover:shadow-[#25D366]/40 active:shadow-[#25D366]/40",
       text: "Fast Response",
     },
   ];
@@ -249,51 +254,55 @@ function App() {
         <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-20">
-              {" "}
-              {/* Tinggi sedikit ditambah agar lebih lega */}
               <div className="flex-shrink-0">
                 <motion.a
                   href="#home"
                   whileHover={{ scale: 1.05 }}
-                  className="text-2xl font-extrabold bg-gradient-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent"
+                  whileTap={{ scale: 0.95 }}
+                  className="text-2xl font-extrabold bg-linear-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent"
                 >
                   Portfolio
                 </motion.a>
               </div>
+
               {/* Desktop Menu */}
               <div className="hidden md:flex items-center space-x-2">
-                {" "}
-                {/* space-x dikurangi karena kita pakai padding di link */}
                 {["Home", "About", "Projects", "Contact"].map((item) => (
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className="px-5 py-2 rounded-xl text-gray-600 font-bold transition-all duration-300 hover:bg-gradient-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:shadow-lg hover:shadow-green-200"
+                    className="px-5 py-2 rounded-xl text-gray-600 font-bold transition-all duration-300 
+            /* Hover Desktop */
+            hover:bg-linear-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:shadow-lg hover:shadow-green-200
+            /* Active/Click State */
+            active:bg-linear-to-r active:from-green-600 active:to-yellow-500 active:text-white"
                   >
                     {item}
                   </a>
                 ))}
-                {/* Social Icons with Hover Circle */}
+
+                {/* Social Icons */}
                 <div className="flex items-center space-x-2 ml-6 border-l pl-6 border-gray-200">
                   <a
                     href="https://github.com/Dickyasyy"
-                    className="p-2 rounded-full text-gray-400 hover:bg-green-100 hover:text-green-600 transition-all duration-300"
+                    className="p-2 rounded-full text-gray-400 hover:bg-green-100 hover:text-green-600 active:bg-green-600 active:text-white transition-all duration-300"
                   >
                     <FaGithub size={20} />
                   </a>
                   <a
                     href="https://www.linkedin.com/feed/"
-                    className="p-2 rounded-full text-gray-400 hover:bg-blue-100 hover:text-blue-600 transition-all duration-300"
+                    className="p-2 rounded-full text-gray-400 hover:bg-blue-100 hover:text-blue-600 active:bg-blue-600 active:text-white transition-all duration-300"
                   >
                     <FaLinkedin size={20} />
                   </a>
                 </div>
               </div>
+
               {/* Mobile Button */}
               <div className="md:hidden">
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+                  className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors"
                 >
                   {isMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
                 </button>
@@ -301,7 +310,7 @@ function App() {
             </div>
           </div>
 
-          {/* Mobile Menu (Optional Adjustment) */}
+          {/* Mobile Menu Area */}
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -312,8 +321,10 @@ function App() {
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="block px-4 py-3 rounded-xl font-bold text-gray-600 hover:bg-gradient-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white"
+                  onClick={() => setIsMenuOpen(false)} // Tutup menu saat link diklik
+                  className="px-5 py-3 rounded-xl text-gray-600 font-bold block transition-all duration-300 
+          /* Efek saat ditekan di HP */
+          active:bg-linear-to-r active:from-green-600 active:to-yellow-500 active:text-white"
                 >
                   {item}
                 </a>
@@ -377,22 +388,37 @@ function App() {
 
                 {/* --- BUTTONS --- */}
                 <div className="flex flex-wrap items-center gap-6">
-                  <a
+                  {/* Tombol View Projects */}
+                  <motion.a
                     href="#projects"
-                    className="px-8 py-3 rounded-2xl border-2 border-green-600 bg-white text-green-600 font-bold shadow-lg shadow-green-100 hover:bg-gradient-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:border-transparent transition-all duration-300 transform hover:scale-105"
+                    whileTap={{ scale: 0.95 }}
+                    className="px-8 py-3 rounded-2xl border-2 border-green-600 bg-white text-green-600 font-bold shadow-lg 
+    /* Desktop Hover */
+    md:hover:bg-linear-to-r md:hover:from-green-600 md:hover:to-yellow-500 md:hover:text-white md:hover:border-transparent
+    /* Mobile Active/Click - FULL GRADIENT */
+    active:bg-linear-to-r active:from-green-600 active:to-yellow-500 active:text-white active:border-transparent
+    transition-all duration-300"
                   >
                     View Projects
-                  </a>
+                  </motion.a>
 
+                  {/* Tombol Download CV */}
                   <div className="flex items-center relative">
-                    <a
+                    <motion.a
                       href="#"
                       onClick={handleDownloadCV}
-                      className="px-8 py-3 rounded-2xl border-2 border-green-600 bg-white text-green-600 font-bold shadow-lg shadow-green-100 hover:bg-gradient-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:border-transparent transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                      whileTap={{ scale: 0.95 }} // Tambahkan feedback tap agar konsisten
+                      className="px-8 py-3 rounded-2xl border-2 border-green-600 bg-white text-green-600 font-bold shadow-lg shadow-green-100 
+      /* Desktop Hover */
+      hover:bg-linear-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:border-transparent hover:scale-105
+      /* Mobile Active/Click - FULL GRADIENT */
+      active:bg-linear-to-r active:from-green-600 active:to-yellow-500 active:text-white active:border-transparent
+      transition-all duration-300 cursor-pointer"
                     >
                       Download CV
-                    </a>
+                    </motion.a>
 
+                    {/* Animasi Klik */}
                     <motion.img
                       src={GlobalImages.AnimClick}
                       className="w-16 h-16 -ml-4 pointer-events-none relative z-20"
@@ -632,11 +658,20 @@ function App() {
           className="px-4 md:px-8 lg:px-16 py-20 bg-transparent"
         >
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold mb-16 text-center bg-gradient-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent">
-              My Projects
-            </h2>
+            {/* Judul: Kita beri z-20 agar di atas kartu, dan pb-4 agar gradientnya tidak terpotong */}
+            <div className="relative z-20">
+              <motion.h2
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-4xl md:text-5xl font-extrabold mb-12 md:mb-16 text-center bg-linear-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent pb-4"
+              >
+                My Projects
+              </motion.h2>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+            {/* Grid: Beri z-10 agar berada di bawah judul secara hierarki jika terjadi tumpang tindih */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-6xl mx-auto relative z-10">
               {projects.map((project, index) => (
                 <motion.div
                   key={index}
@@ -644,91 +679,73 @@ function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -10 }}
                   whileTap={{ scale: 0.98 }}
-                  className="bg-white/90 backdrop-blur-md p-8 rounded-[3rem] shadow-xl border border-gray-100 group flex flex-col h-full"
+                  className="bg-white/70 backdrop-blur-xl p-6 md:p-8 rounded-[3rem] shadow-2xl shadow-gray-200/50 border border-white/50 group flex flex-col h-full hover:border-green-200 transition-all duration-500"
                 >
-                  {/* Gambar Proyek */}
-                  <div className="h-52 overflow-hidden rounded-[2.5rem] mb-6 flex items-center justify-center bg-gray-50 relative border border-gray-100">
+                  {/* Konten Card (Image, Title, etc.) tetap sama */}
+                  <div className="relative h-60 overflow-hidden rounded-[2.5rem] mb-8 bg-gray-100 border border-gray-100 shadow-inner">
                     {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
+                      <>
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      </>
                     ) : (
-                      <span className="text-6xl group-hover:scale-125 transition-all duration-500">
-                        {project.emoji}
-                      </span>
+                      <div className="flex items-center justify-center h-full">
+                        <span className="text-7xl">{project.emoji}</span>
+                      </div>
                     )}
                   </div>
 
-                  <h3 className="text-2xl font-bold mb-3 group-hover:text-green-600 transition-colors">
+                  <h3
+                    className="text-2xl font-bold mb-4 text-gray-800 transition-all duration-300
+            group-hover:text-green-600 
+            group-active:text-transparent"
+                  >
                     {project.title}
                   </h3>
 
-                  <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                  <p className="text-gray-600 mb-8 text-sm leading-relaxed flex-grow">
                     {project.description}
                   </p>
 
-                  {/* TECH STACK ALA "ABOUT ME" */}
+                  {/* Tech Stack */}
                   <div className="flex flex-wrap gap-2 mb-8">
                     {project.tech.map((skill, i) => (
-                      <motion.span
+                      <div
                         key={i}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-xl font-bold text-[11px] text-gray-700 border border-gray-100 shadow-sm cursor-default"
+                        className="flex items-center gap-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-xl font-bold text-[10px] uppercase tracking-wider text-gray-600 border border-gray-100 shadow-sm"
                       >
-                        <span className="text-sm">{skill.icon}</span>{" "}
+                        <span className="text-sm">{skill.icon}</span>
                         {skill.name}
-                      </motion.span>
+                      </div>
                     ))}
                   </div>
 
-                  {/* Tombol Action */}
-                  <div className="flex justify-between items-center border-t border-gray-50 pt-5 mt-auto">
-                    <a
+                  {/* Action Buttons */}
+                  <div className="flex justify-between items-center pt-6 border-t border-gray-100 mt-auto">
+                    <motion.a
                       href={project.demoLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-green-600 hover:text-white transition-all duration-300"
-                      {...(project.isDownload ? { download: "" } : {})} // Menambah attribute download otomatis jika true
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-6 py-3 bg-linear-to-r from-green-600 to-green-500 text-white rounded-2xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-green-200"
+                      {...(project.isDownload ? { download: "" } : {})}
                     >
-                      {project.isDownload ? (
-                        <>
-                          <svg
-                            stroke="currentColor"
-                            fill="none"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                          </svg>
-                          Download
-                        </>
-                      ) : (
-                        <>
-                          <FiExternalLink /> Demo
-                        </>
-                      )}
-                    </a>
-
-                    <a
+                      {project.isDownload ? "Download APK" : "Live Demo"}
+                    </motion.a>
+                    <motion.a
                       href={project.codeLink}
                       target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 font-bold text-sm flex items-center gap-2 hover:text-gray-800 transition-colors"
+                      className="text-gray-400 font-bold text-sm flex items-center gap-2 hover:text-gray-900"
                     >
-                      <FiGithub size={18} /> Code
-                    </a>
+                      <FiGithub size={20} />
+                      <span>Source Code</span>
+                    </motion.a>
                   </div>
                 </motion.div>
               ))}
@@ -747,7 +764,8 @@ function App() {
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent mb-4"
+                /* Update: bg-linear-to-r (Standar v4) */
+                className="text-4xl md:text-5xl font-extrabold bg-linear-to-r from-green-600 to-yellow-500 bg-clip-text text-transparent mb-4"
               >
                 Let's Connect
               </motion.h2>
@@ -758,38 +776,80 @@ function App() {
 
             {/* Social Media Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {socials.map((social, index) => (
-                <motion.a
-                  key={social.name}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{
-                    y: -15,
-                    transition: { duration: 0.2 },
-                  }}
-                  className={`group relative p-8 rounded-[2.5rem] bg-white border border-gray-100 shadow-xl transition-all duration-300 flex flex-col items-center text-center ${social.color} ${social.shadow}`}
-                >
-                  {/* Icon Container */}
-                  <div className="mb-6 p-5 rounded-2xl bg-gray-50 text-3xl group-hover:bg-white/20 group-hover:text-white group-hover:scale-110 group-hover:rotate-[360deg] transition-all duration-500">
-                    {social.icon}
-                  </div>
+              {socials.map((social, index) => {
+                // Logic Gradient Dinamis
+                const activeGradient =
+                  social.name === "LinkedIn"
+                    ? "linear-gradient(to top right, #0077B5, #0077B5)"
+                    : social.name === "WhatsApp"
+                    ? "linear-gradient(to top right, #25D366, #25D366)"
+                    : social.name === "TikTok"
+                    ? "linear-gradient(to top right, #000, #000)"
+                    : "linear-gradient(to top right, #f9ce34, #ee2a7b, #6228d7)"; // Instagram
 
-                  {/* Text Info */}
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-white mb-2 transition-colors">
-                    {social.name}
-                  </h3>
-                  <p className="text-gray-500 text-sm group-hover:text-white/80 transition-colors font-medium">
-                    {social.text}
-                  </p>
+                const shadowColor =
+                  social.name === "LinkedIn"
+                    ? "#0077B5"
+                    : social.name === "WhatsApp"
+                    ? "#25D366"
+                    : social.name === "TikTok"
+                    ? "#666"
+                    : "#ee2a7b";
 
-                  {/* Decorative Circle di Background Card saat Hover */}
-                  <div className="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:opacity-100 opacity-0 transition-opacity"></div>
-                </motion.a>
-              ))}
+                const isActive = activeSocial === index;
+
+                return (
+                  <motion.a
+                    key={`social-card-${social.name}-${index}`}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onTouchStart={() => setActiveSocial(index)}
+                    onTouchEnd={() => setActiveSocial(null)}
+                    onMouseDown={() => setActiveSocial(index)}
+                    onMouseUp={() => setActiveSocial(null)}
+                    style={{
+                      // GUNAKAN backgroundImage agar sama dengan Instagram
+                      backgroundImage: isActive ? activeGradient : "none",
+                      backgroundColor: isActive ? "transparent" : "white",
+                      boxShadow: isActive
+                        ? `0 20px 25px -5px ${shadowColor}66`
+                        : "",
+                      transition: "all 0.2s ease",
+                    }}
+                    className={`relative p-8 rounded-[2.5rem] border border-gray-100 shadow-xl flex flex-col items-center text-center z-50 ${social.color} ${social.shadow}`}
+                  >
+                    {/* Icon Container */}
+                    <div
+                      style={{
+                        backgroundColor: isActive
+                          ? "rgba(255,255,255,0.2)"
+                          : "",
+                        color: isActive ? "white" : "",
+                      }}
+                      className="mb-6 p-5 rounded-2xl bg-gray-50 text-3xl transition-all duration-300"
+                    >
+                      {social.icon}
+                    </div>
+
+                    {/* Text Title */}
+                    <h3
+                      style={{ color: isActive ? "white" : "" }}
+                      className="text-xl font-bold text-gray-800 transition-colors duration-300"
+                    >
+                      {social.name}
+                    </h3>
+
+                    {/* Text Description */}
+                    <p
+                      style={{ color: isActive ? "rgba(255,255,255,0.8)" : "" }}
+                      className="text-gray-500 text-sm transition-colors duration-300"
+                    >
+                      {social.text}
+                    </p>
+                  </motion.a>
+                );
+              })}
             </div>
           </div>
         </section>
