@@ -1,7 +1,8 @@
 // Import Foto 
 import Profil from "./Images/Profil.png";
-import weddingProject from "./Images/project wedding.png";
-import servisProject from "./Images/Web Servis Printer.png";
+import weddingProject from "./Images/Project Wedding.png";
+import servisProject from "./Images/Web Servis.jpg";
+import InvestProject from "./Images/Aplikasi Panduan Investasi.jpeg";
 
 // Import Semua Animasi
 import AnimFly from "./Animasi/animasi orang terbang.png";
@@ -15,6 +16,7 @@ export const GlobalImages = {
   Profil,
   weddingProject,
   servisProject,
+  InvestProject,
   AnimFly,
   AnimClick,
   AnimAbout1,

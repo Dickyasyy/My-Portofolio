@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import { FaGithub, FaLinkedin, FaBars, FaTimes, FaRegCreditCard } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaBars,
+  FaTimes,
+  FaRegCreditCard,
+} from "react-icons/fa";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
 import {
   SiReact,
   SiLaravel,
   SiJavascript,
+  SiTypescript,
   SiPhp,
   SiTailwindcss,
   SiBootstrap,
   SiGithub,
   SiMysql,
+  SiAndroid,
 } from "react-icons/si";
 import { SiLinkedin, SiTiktok, SiInstagram, SiWhatsapp } from "react-icons/si";
 import { motion } from "framer-motion";
@@ -71,8 +79,9 @@ function App() {
       emoji: "💍",
     },
     {
-      title: "Web Servis",
-      description: "Web Jasa Servis Printer Dan Instalasi Windows Cepat & Murah Meriah",
+      title: "Web Servis Dan Instalasi",
+      description:
+        "Web jasa servis printer dan instalasi windows cepat & murah meriah",
       image: GlobalImages.servisProject,
       demoLink: "https://servis-laptop-frontend.vercel.app/",
       codeLink: "https://github.com/Dickyasyy/servis-laptop-frontend",
@@ -81,21 +90,44 @@ function App() {
         { name: "Tailwind", icon: <SiTailwindcss className="text-teal-400" /> },
         { name: "Laravel", icon: <SiLaravel className="text-red-600" /> },
         { name: "SQL", icon: <SiMysql className="text-blue-700" /> },
-        { name: "Midtrans", icon: <FaRegCreditCard className="text-blue-800" /> }
+        {
+          name: "Midtrans",
+          icon: <FaRegCreditCard className="text-blue-800" />,
+        },
       ],
       emoji: "🛍️",
+    },
+    {
+      title: "Aplikasi Panduan Belajar Investasi",
+      description:
+        "Aplikasi berbasis android untuk belajar investasi menjadi lebih mudah yang bisa di download",
+      image: GlobalImages.InvestProject,
+      demoLink: "https://expo.dev/artifacts/eas/jwLCeGr23d2FDPYnX36xS2.apk",
+      codeLink: "https://github.com/Dickyasyy/Panduan-Investasi",
+      isDownload: true,
+      tech: [
+        {
+          name: "TypeScript",
+          icon: <SiTypescript className="text-blue-600" />,
+        },
+        {
+          name: "Expo",
+          icon: <SiAndroid className="text-green-500" />,
+        },
+      ],
+      emoji: "📱",
     },
   ];
 
   const StarSparkles = () => {
     // Jumlah 100 agar lebih ramai dan terlihat jelas
-    const stars = Array.from({ length: 40 });
+    const stars = Array.from({ length: 30 });
 
     return (
       <div className="fixed inset-0 pointer-events-none z-20 overflow-hidden">
         {stars.map((_, i) => {
           const size = Math.random() * 5 + 2;
-          const isGreen = Math.random() > 0.5; // 50% Hijau, 50% Kuning
+          const isGreen = Math.random() > 0.5;
 
           return (
             <motion.div
@@ -498,6 +530,10 @@ function App() {
                       icon: <SiJavascript className="text-yellow-400" />,
                     },
                     {
+                      name: "TypeScript",
+                      icon: <SiTypescript className="text-blue-600" />,
+                    },
+                    {
                       name: "PHP",
                       icon: <SiPhp className="text-indigo-500" />,
                     },
@@ -608,9 +644,34 @@ function App() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 py-2 bg-green-50 text-green-600 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-green-600 hover:text-white transition-all duration-300"
+                      {...(project.isDownload ? { download: "" } : {})} // Menambah attribute download otomatis jika true
                     >
-                      <FiExternalLink /> Demo
+                      {project.isDownload ? (
+                        <>
+                          <svg
+                            stroke="currentColor"
+                            fill="none"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                          </svg>
+                          Download
+                        </>
+                      ) : (
+                        <>
+                          <FiExternalLink /> Demo
+                        </>
+                      )}
                     </a>
+
                     <a
                       href={project.codeLink}
                       target="_blank"
