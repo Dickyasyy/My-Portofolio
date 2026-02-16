@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swal from 'sweetalert2';
 import {
   FaGithub,
   FaLinkedin,
@@ -27,6 +28,53 @@ import { GlobalImages } from "./assets";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleDownloadCV = (e) => {
+    e.preventDefault();
+  
+    Swal.fire({
+      title: 'Masukkan Kode Akses',
+      input: 'text',
+      inputPlaceholder: 'Ketik kode di sini...',
+      showCancelButton: true,
+      confirmButtonText: 'Download',
+      confirmButtonColor: '#059669', // Warna hijau
+      cancelButtonText: 'Batal',
+    }).then((result) => {
+      const KODE_RAHASIA = "Riferawati Ainun";
+  
+      if (result.isConfirmed) {
+        if (result.value === KODE_RAHASIA) {
+          // Jika Benar
+          const link = document.createElement('a');
+          link.href = "/cv-secure-9525123-req-access.pdf";
+          link.download = "CV_Muh_Nur_Assidiq_Syafarrudin.pdf";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+  
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: 'Download sedang berjalan...',
+            timer: 2000,
+            showConfirmButton: false
+          });
+  
+        } else {
+          // Jika Salah - Arahkan ke IG
+          Swal.fire({
+            icon: 'error',
+            title: 'Kode Salah 🤪',
+            html: 'Silakan DM saya di Instagram untuk mendapatkan kode akses.',
+            footer: '<a href="https://instagram.com/dickyasyy" target="_blank" style="color: #E1306C; font-weight: bold;">Klik di sini untuk ke IG: @dickyasyy</a>',
+            confirmButtonText: 'Tutup',
+            confirmButtonColor: '#d33'
+          });
+        }
+      }
+    });
+  };
 
   const socials = [
     {
@@ -338,12 +386,13 @@ function App() {
 
                   <div className="flex items-center relative">
                     <a
-                      href="/CV_Muh_Nur_Assidiq_Syafarrudin.pdf"
-                      download="CV Muh Nur Assidiq_Syafarrudin.pdf"
-                      className="px-8 py-3 rounded-2xl border-2 border-green-600 bg-white text-green-600 font-bold shadow-lg shadow-green-100 hover:bg-gradient-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:border-transparent transition-all duration-300 transform hover:scale-105"
+                      href="#"
+                      onClick={handleDownloadCV}
+                      className="px-8 py-3 rounded-2xl border-2 border-green-600 bg-white text-green-600 font-bold shadow-lg shadow-green-100 hover:bg-gradient-to-r hover:from-green-600 hover:to-yellow-500 hover:text-white hover:border-transparent transition-all duration-300 transform hover:scale-105 cursor-pointer"
                     >
                       Download CV
                     </a>
+
                     <motion.img
                       src={GlobalImages.AnimClick}
                       className="w-16 h-16 -ml-4 pointer-events-none relative z-20"
