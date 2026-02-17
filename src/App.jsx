@@ -251,7 +251,7 @@ function App() {
       {/* --- CONTENT LAYER --- */}
       <div className="relative z-10">
         {/* Navigation */}
-        <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <nav className="fixed w-full z-[100] bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-20">
               <div className="flex-shrink-0">
@@ -744,7 +744,7 @@ function App() {
                       className="text-gray-400 font-bold text-sm flex items-center gap-2 hover:text-gray-900"
                     >
                       <FiGithub size={20} />
-                      <span>Source Code</span>
+                      <span>Code</span>
                     </motion.a>
                   </div>
                 </motion.div>
