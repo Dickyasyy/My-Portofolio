@@ -155,7 +155,8 @@ function App() {
       description:
         "Aplikasi berbasis android untuk belajar investasi menjadi lebih mudah yang bisa di download",
       image: GlobalImages.InvestProject,
-      demoLink: "https://expo.dev/artifacts/eas/jwLCeGr23d2FDPYnX36xS2.apk",
+      demoLink: "https://panduan-investasi.vercel.app/", 
+      downloadLink: "https://expo.dev/artifacts/eas/3Zw6gZAJ6Rw4o1VP4MBWvw.apk", 
       codeLink: "https://github.com/Dickyasyy/Panduan-Investasi",
       isDownload: true,
       tech: [
@@ -163,10 +164,7 @@ function App() {
           name: "TypeScript",
           icon: <SiTypescript className="text-blue-600" />,
         },
-        {
-          name: "Expo",
-          icon: <SiAndroid className="text-green-500" />,
-        },
+        { name: "Expo", icon: <SiAndroid className="text-green-500" /> },
       ],
       emoji: "📱",
     },
@@ -727,17 +725,35 @@ function App() {
 
                   {/* Action Buttons */}
                   <div className="flex justify-between items-center pt-6 border-t border-gray-100 mt-auto">
-                    <motion.a
-                      href={project.demoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-3 bg-linear-to-r from-green-600 to-green-500 text-white rounded-2xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-green-200"
-                      {...(project.isDownload ? { download: "" } : {})}
-                    >
-                      {project.isDownload ? "Download APK" : "Live Demo"}
-                    </motion.a>
+                    <div className="flex flex-wrap gap-2">
+                      {/* Tombol Live Demo (Muncul di semua project) */}
+                      <motion.a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="px-5 py-3 bg-linear-to-r from-green-600 to-green-500 text-white rounded-2xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-green-100"
+                      >
+                        <span>Live Demo</span>
+                      </motion.a>
+
+                      {/* Tombol Download APK (Hanya muncul jika isDownload true) */}
+                      {project.isDownload && (
+                        <motion.a
+                          href={project.downloadLink}
+                          download
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-5 py-3 bg-blue-600 text-white rounded-2xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-blue-100"
+                        >
+                          <SiAndroid size={16} />
+                          <span>Download APK</span>
+                        </motion.a>
+                      )}
+                    </div>
+
+                    {/* Tombol Code Github */}
                     <motion.a
                       href={project.codeLink}
                       target="_blank"
